@@ -222,6 +222,32 @@
 
 // console.log(condensed);
 
+//todo Sedond Solution
+
+// let first = [[1,3],
+//              [2,4]];
+
+// let second = [[5,2],
+//               [1,0]];
+
+// let third = [];
+
+// for(let i = 0; i <= first.length - 1; i ++){
+
+//     let innerArr = [];
+
+//     for(let j = 0; j <= first[i].length - 1; j++){
+
+//         innerArr.push(first[i][j] + second[i][j]);
+    
+//     }
+
+//     third.push(innerArr);
+
+// }
+
+// console.log(third);
+
 // 13. Matrix Addition II
 // Use your solution in Matrix Addition, and extend it to work for a pair of matrices of any size, as long as they have the same size.
 
@@ -267,6 +293,29 @@
 // }
 // console.log(newArr);
 
+//todo Another solution for 14
+
+// let arr = [1,2,3,4,2,3,5,6,6,7,7,3,8,5,9];
+
+// let newArr = [];
+
+// let add;
+
+// for(let i = 0; i <= arr.length - 1; i++){
+//     add = true;
+//     for(let j = i + 1; j <= arr.length - 1; j++){
+//         if(arr[i] === arr[j]){
+//             add = false;
+//         } 
+//     }
+//     if(add != false){
+//         newArr.push(arr[i]);
+//     }
+// }
+
+// console.log(arr);
+// console.log(newArr);
+
 // 15. Leetspeak
 // Given a paragraph of text as a String, print the paragraph in leetspeak.
 
@@ -282,7 +331,7 @@
 // T	7
 // Example: If your program is given the String "I am a leet programmer", it should print "1 4m 4 l337 pr0gr4mm3r" as the leetspeak translation
 
-//? 15
+// //? 15
 
 // let translator = ["A", "4", "E", "3", "G", "6", "I", "1", "O", "0", "S", "5", "T", "7"]
 // let string = "I am a leet programmer";
@@ -328,7 +377,7 @@
 // let vowels = ["a", "e", "i", "o", "u"];
 
 // for(let i = 0; i <= word.length - 1; i++){
-//     if(word[i] === word[i+1]){
+//     if((vowels.includes(word[i]))&&(word[i] === word[i+1])){
 //         longArr.push(word[i].repeat(4));    
 //     } else{
 //         longArr.push(word[i]);
@@ -345,38 +394,68 @@
 
 //? 17
 
-let text = "lbh zhfg hayrnea jung lbh unir yrnearq";
+// let text = "lbh zhfg hayrnea jung lbh unir yrnearq";
 
-let split = text.split("");
+// let split = text.split("");
 
-let offset = 13;
+// let offset = 13;
 
-let newLetters = [];
+// let newLetters = [];
 
-let newSplit = [];
+// let newSplit = [];
 
-let newText = "";
+// let newText = "";
 
-let letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// let letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-for(let i = 0; i <= split.length-1; i++){
-    if(letters.indexOf(letters[i]) + offset >= letters.length){
-        newLetters.push(letters[i - 26 + offset]); 
-    } else {
-        newLetters.push(letters[i + offset]);
-    }
-}
+// for(let i = 0; i <= letters.length-1; i++){
+//     if(i + offset >= letters.length){     
+//         newLetters.push(letters[i - 26 + offset]); //todo offsets letters to the front of newLetters if they would have been moved to an index past newLetters.length
+//     } else {
+//         newLetters.push(letters[i + offset]);  //todo adds an offset to the letters within newLetters
+//     }
+// }
 
-for(i = 0; i <= split.length-1; i++){
-    if(split[i] === " "){
-        newSplit.push(" ");
-    } else {
-        newSplit.push(newLetters[letters.indexOf(split[i])]);
-    }
-}
+// for(i = 0; i <= split.length-1; i++){
+//     if(split[i] === " "){
+//         newSplit.push(" ");         
+//     } else {
+//         newSplit.push(newLetters[letters.indexOf(split[i])]);   //todo   USING OFFSET OF 1 AND i = 1 ...  newSplit.push(newLetters[letters.indexOf("b")])
+//     }                                                           //todo                                    newSplit.push(newLetters[1])                                          
+// }                                                               //todo                                    newSplit.push("c")   offset of 1 changed "b" to "c"
 
-newText = newSplit.join("");
+// newText = newSplit.join("");
 
-console.log(newText);
+// console.log(newText);
 
+//? Reverse Number
 
+// let number = -100453;
+
+// let numString = number.toString();
+
+// let splitNum = numString.split("");
+
+// let newSplitNum = [];
+
+// let newNumString = "";
+
+// let newNum;
+
+// for(let i = 0; i <= splitNum.length - 1; i ++){
+//     if(splitNum[i] === "-"){
+//         newSplitNum[i] = splitNum[i];
+//     } else {
+//         if(newSplitNum[0] === "-"){
+//             newSplitNum[i] = splitNum[splitNum.length  - i];
+//         } else {
+//             newSplitNum[i] = splitNum[splitNum.length - 1 - i];
+//         }
+//     }
+// }
+
+// newNumString = newSplitNum.join("");
+
+// newNum = Number(newNumString);
+
+// console.log(newNum);
