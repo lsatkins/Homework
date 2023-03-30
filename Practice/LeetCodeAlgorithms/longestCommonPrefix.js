@@ -1,49 +1,99 @@
-let strs = ["dog","racecar","car"];
+let strs = ["cats","catsl","catsew"];
+
+// var longestCommonPrefix = function(strs){
+
+//     let add = true;
+//     let trackerNums = [];
+    
+//     for(let i = 0; i <= strs.length - 2; i++){
+
+//         let firstWord = strs[i];
+//         let secondWord = strs[i+1];
+//         let tracker = 0;
+
+//         for(let j = 0; j <= firstWord.length - 1; j++){
+
+//             if(firstWord[j] != secondWord[j]){
+//                 break;
+//             } else {
+//                 tracker ++;
+//             }
+//         }
+//         trackerNums.push(tracker);
+
+//     }
+
+//     let minTrack = 10;
+
+//     //set minTrack to a high number so that when finding the
+//     // minimum tracker value, it will not give a false minimum.
+
+//     for (let i = 0; i <= trackerNums.length - 1; i++){
+//         if(trackerNums[i] < minTrack){
+//             minTrack = trackerNums[i];
+//         }
+//     }
+
+//     let oneWord = strs[0];
+
+//     let goodLetters = String(oneWord.substr(0,minTrack));
+
+//     if (goodLetters.length > 0){
+//         return goodLetters;
+//     } else{
+//         return String("");
+//     }
+   
+// }
+
+//todo Another solution
 
 var longestCommonPrefix = function(strs){
 
-    let add = true;
-    let trackerNums = [];
-    
-    for(let i = 0; i <= strs.length - 2; i++){
+    let goodLetters = "";
+    let refWord = strs[0];
 
-        let firstWord = strs[i];
-        let secondWord = strs[i+1];
-        let tracker = 0;
+    function sameLetter(arrOfStrings, indexOfLetter) {
 
-        for(let j = 0; j <= firstWord.length - 1; j++){
+        let isSameLetter = true;
 
-            if(firstWord[j] != secondWord[j]){
+        let funcLetters = "";
+        
+        for(let i = 1; i <= arrOfStrings.length - 1; i++){
+
+            //looping through array and checking if letter
+            //at given index is the same for each word
+
+            let currentWord = arrOfStrings[i];
+
+            const firstWord = arrOfStrings[0];
+
+            if(firstWord[indexOfLetter] != currentWord[indexOfLetter]){
+                isSameLetter = false;
                 break;
-            } else {
-                tracker ++;
             }
         }
-        trackerNums.push(tracker);
 
+        if(isSameLetter === true){
+            funcLetters += refWord[indexOfLetter];
+        }
+
+        return funcLetters;
+
+        //returns the letter at the given index if they are the
+        //same for every word in the array
     }
 
-    let minTrack = 10;
+    for(let i = 0; i <= refWord.length - 1; i++){
 
-    //set minTrack to a high number so that when finding the
-    // minimum tracker value, it will not give a false minimum.
+        if(sameLetter(strs, i) != ""){
 
-    for (let i = 0; i <= trackerNums.length - 1; i++){
-        if(trackerNums[i] < minTrack){
-            minTrack = trackerNums[i];
+            goodLetters += sameLetter(strs,i);
+
         }
     }
 
-    let oneWord = strs[0];
-
-    let goodLetters = String(oneWord.substr(0,minTrack));
-
-    if (goodLetters.length > 0){
-        return goodLetters;
-    } else{
-        return String("");
-    }
-   
+    return goodLetters;
 }
 
 console.log(longestCommonPrefix(strs));
