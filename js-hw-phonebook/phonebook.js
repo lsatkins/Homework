@@ -29,6 +29,8 @@ let phoneBook = [
 
 let quit = false;
 
+//variable to change the value of when ready to quit
+
 while(quit != true){
   let menu = Number(prompt(`
   Electronic Phone Book
