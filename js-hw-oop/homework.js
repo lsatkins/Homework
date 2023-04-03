@@ -54,10 +54,11 @@ class User
 }
 
 
-
+let beach = new Address ("Sandy Lane", "Destin","FL","36545")
 let hunter = new User("Hunter", "Atkins")
 let home = new Address("1037 Yellowhammer Lane,","Tuscaloosa, ","AL, ", "35476");
 hunter.addAddress(home);
+hunter.addAddress(beach);
 hunter.displayAddresses();
 
 //? Person Class
