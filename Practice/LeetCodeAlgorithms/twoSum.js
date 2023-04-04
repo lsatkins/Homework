@@ -29,8 +29,11 @@ let twoSum = function(nums, target) {
     return result;
 };
 
-let nums = [2,7,11,15];
+// let nums = [2,7,11,15];
+let nums = [3,5,-4,8,11,1,-1,6]
 
-let target = 9;
+// let target = 9;
+
+let target = 10;
 
 console.log(twoSum(nums, target));
