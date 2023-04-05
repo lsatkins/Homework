@@ -4,10 +4,10 @@ const prompt = require('prompt-sync')({sigint: true});
 class Character {
 
     constructor(health = 10, hp, strength = 3, defence = 0,evasion = 1, mana = 1, mp = 1, level = 1, exp = 0
-        ,coins = 0, sp = 0, bag = {}, equipment = {}, spell = false){
+        ,coins = 0, sp = 0, bag = {}, equipment = {}, spell = false, critical = false){
         this.health = health;
         this.hp = hp;
-        this.hp = health * 1;
+        this.hp = health;
         this.strength = strength;
         this.defence = defence;
         this.evasion = evasion;
@@ -25,6 +25,8 @@ class Character {
         this.equipment = {};
         this.spell = spell;
         this.spell = false;
+        this.critical = critical;
+        this.critical = false;
 
     }
 
@@ -34,37 +36,59 @@ class Character {
         }
     }
 
-    attack(goblin){
+    attack(enemy){
+
+        this.damage(enemy);
 
         if(this.spell === true){
 
-            goblin.hp -= (this.strength * 2);
+            enemy.hp -= (this.damage(enemy));
+            // enemy.hp -= (this.strength * 2);
             console.log(`You have ignored the enemy's defence and dealt 
-            ${this.strength * 2} fire damage to the ${goblin.name}!`);
+            ${this.damage(enemy)} fire damage to the ${enemy.name}!`);
+            // ${this.strength * 2} fire damage to the ${enemy.name}!`);
             this.spell = false; //this.spell used to tell if I want to use fireball and have mana for it
 
 
-        } else if(this.damage() > this.strength && this.spell === false){
-            goblin.hp -= (this.strength * 2);
-            console.log(`You have dealt a critical hit to the ${goblin.name}!`);
-            console.log(`You do ${this.strength * 2} damage to the ${goblin.name}.`);
+        } else if(this.damage(enemy) > this.strength){
+            enemy.hp -= (this.strength * 2);
+            console.log(`You have dealt a critical hit to the ${enemy.name}!`);
+            console.log(`You do ${this.strength * 2} damage to the ${enemy.name}.`);
+            this.critical = false;
+            // console.log(`You do ${this.strength * 2} damage to the ${enemy.name}.`);
         }else {
-            goblin.hp -= this.strength;
-            console.log(`You do ${this.strength} damage to the ${goblin.name}`);
+            enemy.hp -= this.strength;
+            console.log(`You do ${this.strength} damage to the ${enemy.name}`);
+            // enemy.hp -= this.strength;
+            // console.log(`You do ${this.strength} damage to the ${enemy.name}`);
         }
     }
 
-    damage(){
+    damage(enemy){// took out enemy as a parameter
 
         let luck = Math.random() * 100;
-        let damage = this.strength;
-        if (luck < 20){
-            damage *= 2;
+
+        let damageNum = this.strength - enemy.defence; //took out enemy.defence to allow code to work
+
+        if(this.spell === true){
+
+            damageNum = (this.strength * 2);
+
+        } else{
+
+            
+
+            if (damageNum <= 0){
+                damageNum = 0;
+            }
+            if (luck <= 20){
+                damageNum *= 2;
+                this.critical = true;
+            }
+
         }
-        if (this.spell === true){
-            damage *= 2;
-        }
-        return damage;
+        
+        return damageNum;
     }
 
     printStatus(){
@@ -91,6 +115,7 @@ class Character {
             this.level +=1;
             this.levelUp();
             gainedExp = min + remainder;
+            this.exp += gainedExp;
             console.log(`You gained ${this.exp} exp points!`);
 
         } else {
@@ -128,7 +153,7 @@ class Character {
             console.log("You have gained 1 coin.");
         } else if (this.coins - 1 >= 0){
             this.coins --;
-            console.log(`A goblin has stolen a coin from you!!`);
+            console.log(`An enemy has stolen a coin from you!!`);
         } else {
             console.log("You are flat broke...");
         }
@@ -318,8 +343,8 @@ class Opponent {
 
     levelUp(player){
 
-        this.strength = 2 + (player.level -1);
-        this.health = 7 + ((player.level - 1) * 2);
+        this.strength = this.strength + (player.level -1);
+        this.health = this.health + ((player.level - 1) * 2);
 
     }
 
@@ -332,6 +357,29 @@ class Opponent {
         }
     }
 
+    createStats(player){
+        this.health += ((player.level - 1) * 2);
+        this.strength += (player.level - 1);
+        this.hp = this.health;
+    }
+
+}
+
+class Zombie extends Opponent{
+    constructor(name = "zombie", health = 5, hp, strength = 1, defence = 100){
+        super(name, health, hp, strength, defence);
+        this.name = name;
+        this.health = health;
+        this.hp = hp;
+        this.strength = strength;
+        this.defence = defence;
+    }
+
+    createStats(player){
+        this.health += ((player.level - 1) * 2);
+        this.strength += (player.level - 1);
+        this.hp = this.health;
+    }
 }
 
 const main = () => {
@@ -355,10 +403,28 @@ const main = () => {
 
     let initialLevel = player.level;
 
-  while(play === true){
-    let goblin = new Opponent();
-    if(initialLevel < player.level){
-        goblin.levelUp(player);
+    
+
+  while(play === true){ 
+
+    if(player.level >= 5){
+        let whichEnemy = Math.random();
+        if(whichEnemy > .5){
+            let enemy = new Zombie();
+            enemy.createStats(player);
+            console.log(enemy);
+        } else { enemy = new Opponent();
+                if(initialLevel < player.level){
+                enemy.levelUp(player);
+                } else {
+                    enemy.createStats(player);
+                }
+        }
+    } else {
+        enemy = new Opponent();
+        if(initialLevel < player.level){
+         enemy.levelUp(player);
+         }
     }
 
     console.log(`
@@ -368,7 +434,7 @@ const main = () => {
     3: Open Bag
     4: Go to Shop
     5: Quit Game
-    Choose (1, 2, 3, or 4)`);
+    Choose (1, 2, 3, 4, or 5)`);
 
     let choice = Number(prompt());
 
@@ -394,9 +460,7 @@ const main = () => {
             continue;
         }
 
-    }
-    
-    else if(choice === 3){
+    } else if(choice === 3){
 
         player.openBag();
         continue;
@@ -413,15 +477,17 @@ const main = () => {
     
     else {
 
+        console.log("Invalid Option");
+
     }
 
-        while (goblin.alive() && player.alive() && play === true) {
+        while (enemy.alive() && player.alive() && play === true) {
             player.printStatus();
-            goblin.printStatus();
+            enemy.printStatus();
             console.log()
             console.log("What do you want to do?")
-            console.log("1. fight goblin")
-            console.log("2. use firball");
+            console.log(`1. fight ${enemy.name}`)
+            console.log("2. use fireball");
             console.log("3. use items")
             console.log("4. flee")
             console.log("> ")
@@ -431,27 +497,29 @@ const main = () => {
 
             if (rawInput == "1"){
                 //Hero attacks goblin
-                player.attack(goblin);
-                if(player.equipment.regenBelt === true){
-                    player.hp += (player.health * .05);
-                    console.log(`You have regenerated ${player.health * .05} health points`);
+                console.log("");
+                player.attack(enemy);
+                let regenAmount = (player.health * .05);
+                if(player.equipment.regenBelt === true && (player.hp + regenAmount) <= player.health ){
+                    player.hp += regenAmount;
+                    console.log(`You have regenerated ${regenAmount} health points`);
                 }
-                if (goblin.hp <= 0){
-                    console.log("The goblin is dead.")
+                if (enemy.hp <= 0){
+                    console.log(`The ${enemy.name} is dead.`)
                     player.gainExp();
                     player.getRewards();
                 }
 
             } else if (rawInput == "2"){
 
-                player.useFireball(goblin)
-                player.attack(goblin);
+                player.useFireball(enemy)
+                player.attack(enemy);
                 if(player.equipment.regenBelt === true){
                     player.hp += (player.health * .05);
                     console.log(`You have regenerated ${player.health * .05} health points`);
                 }
-                if (goblin.hp <= 0){
-                    console.log("The goblin is dead.")
+                if (enemy.hp <= 0){
+                    console.log(`The ${enemy.name} is dead.`)
                     player.gainExp();
                     player.getRewards();
                 }
@@ -470,12 +538,12 @@ const main = () => {
                 console.log(`Invalid input ${rawInput}`)
             }//end of if statement
 
-            if (goblin.alive()){
+            if (enemy.alive()){
                 // Goblin attacks hero
                 if(player.dodge() === true){
-                    console.log("You have evaded the goblin's attack!");
+                    console.log(`You have evaded the ${enemy.name}'s attack!`);
                 }else {
-                    goblin.attack(player);
+                    enemy.attack(player);
                 if (player.hp <= 0){
                     console.log("You are dead.")
                     play = false;
