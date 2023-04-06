@@ -1,0 +1,77 @@
+.container-fluid{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.navbar{
+    color:white;
+    background-color: rgb(74, 138, 210);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 80%;
+    padding-left: 20px;
+}
+
+.firstSection{
+    background-color: rgb(207, 203, 203);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.header{
+    color: rgb(102, 102, 196);
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+.container-fluid>div{
+    width: 75%;
+    margin: 10px 0px 10px 0px;
+}
+.foot{
+    display: flex;
+    background-color: orange;
+    color: white;
+    align-items: center;
+    padding: 5px;
+}
+.comments{
+    margin-bottom: 0px;
+    padding-right: 30px;
+}
+.likes{
+    margin-bottom: 0px;
+}
+
+.title{
+    margin-bottom: 10px;
+}
+
+.navbar-brand{
+    font-size: 40px;
+    font-weight: 500;
+    margin-right: 20px;
+}
+.nav-link{
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.title{
+    font-size: 30px;
+    font-weight: 600;
+    padding-left: 20px;
+}
+
+.text{
+    margin-bottom: 0px;
+    line-height: 1.2
+}
+
+.first{
+    padding: 20px;
+}
