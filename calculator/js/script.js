@@ -11,21 +11,21 @@ let nine = document.querySelector("#nine");
 let zero = document.querySelector("#zero");
 let dot = document.querySelector("#dot");
 let numbers = [one, two, three, four, five, six, seven, eight, nine, zero, dot];
-//looping to add ELs for all number objects
+
 let inputStr = "";
 let arrNums = [];
 let arrOpp = [];
+
+//looping to add ELs for all number objects
 for(let i = 0; i <= numbers.length - 1; i++){
     numbers[i].addEventListener('click', (e)=>{
         inputStr += e.target.innerText;
         input.innerText = inputStr;
     })
 }
-// let body = document.querySelector('body');
-let nums = ["one", "two", "three", "four", "five", "six", 'seven', 'eight', 'nine', 'zero', 'dot']
-let operatorStrings = ["plus", "minus", "multiply", "divide"];
+
 let operatorSymbols = ['+', '-', '/', '*']
-// let oppDiv = document.querySelector(".operators")
+
 let plus = document.querySelector("#plus");
 let minus = document.querySelector("#minus");
 let multiply = document.querySelector("#multiply");
@@ -63,7 +63,7 @@ clear.addEventListener('click', (e)=>{
 let result = document.querySelector("#result");
 
 result.addEventListener('click', (e)=>{
-    let temp = 0;
+    let temp = "";
     if(inputStr != ""){
         arrNums.push(inputStr);
     }
@@ -95,25 +95,3 @@ result.addEventListener('click', (e)=>{
     arrOpp = [];
 })
 
-// body.addEventListener('click', (e)=>{
-//      if(nums.includes(e.target.id)){
-//         inputStr += e.target.innerText;
-//         input.innerText = inputStr;
-//         console.log(e.target);
-//         console.log(inputStr);
-//         console.log(arrNums);
-//         console.log(arrOpp);
-//      } else if(operatorStrings.includes(e.target.id)){
-//         arrNums.push(inputStr);
-//         inputStr = "";
-//         input.innerText = e.target.innerText;
-//         arrOpp.push(e.target.innerText)
-//        if(inputStr === ""){
-//         input.innerText = arrOpp[arrOpp.length - 1];
-//        }
-//     }
-// })
-
-// oppDiv.addEventListener('click', (e)=>{
-//     if(operatorStrings.includes())
-// })
