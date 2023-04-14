@@ -35,18 +35,13 @@ let oppObj = [plus, minus, multiply, divide];
 for(let i = 0; i <= oppObj.length -1; i++){
     oppObj[i].addEventListener('click', (e)=>{
         
-        if((input.innerText != "") && (operatorSymbols.includes(input.innerText) != true)){
+        if((input.innerText != "") && (operatorSymbols.includes(input.innerText) != true)){ //checking to make sure input is not empty and does not contain an operator symbol
             arrNums.push(inputStr);
             inputStr = "";
             arrOpp.push(e.target.innerText);
 
             input.innerText = e.target.innerText;
 
-            console.log(arrOpp);
-            console.log(arrNums);
-
-        } else{
-            
         }
     })
 }
@@ -63,8 +58,10 @@ clear.addEventListener('click', (e)=>{
 let result = document.querySelector("#result");
 
 result.addEventListener('click', (e)=>{
-    let temp = "";
-    if(inputStr != ""){
+    let temp = ""; //
+
+    if(inputStr != ""){ //checking to see if input string is empty
+                        // if it isn't, we push the input string into our array of string numbers
         arrNums.push(inputStr);
     }
     for(let i = 0; i<= arrNums.length -1; i++){
@@ -84,14 +81,18 @@ result.addEventListener('click', (e)=>{
         else {
             arrNums[i+1] = arrNums[i] / arrNums[i+1];
         }
-        console.log(arrNums[i]);
-        console.log(arrNums[i+1]);
-        temp = arrNums[i+1]; 
+
+        console.log(arrOpp);
+        console.log(arrNums);
+
+    
+        temp = arrNums[i+1]; //setting temp equal to whatever the value of arrNums[i+1] is at the end of the loop
+
+        console.log(temp);
     }
     input.innerText = temp;
-    inputStr = "";
     arrNums = [];
-    inputStr =[String(temp)];
+    inputStr =String(temp);
     arrOpp = [];
 })
 

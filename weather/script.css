@@ -1,0 +1,61 @@
+.body{
+    
+    height: 100vh;
+    width: 100vw;
+}
+.container-fluid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: absolute;
+    background-image: url("images/sunny.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.dataBox{
+    position: relative;
+    bottom: 20%;
+    border: solid;
+    border-radius: 10%;
+    padding: 10px;
+    width: 400px;
+    background-color:rgb(241, 241, 241);
+}
+.city{
+    font-size: 40px;
+}
+.picBox{
+    display: flex;
+    justify-content: center;
+}
+.smallPic{
+    height: 50px;
+    width: 50px;
+    margin-bottom: 10px;
+}
+.smallData{
+    background-color:rgb(51, 147, 179);
+    border: solid black;
+    border-radius: 10%;
+    padding: 10px;
+    color: white;
+}
+.city{
+    display: flex;    
+}
+#text{
+    width: 250px;
+    margin-left: 20px;
+    text-align: center
+}
+.buttonBox{
+   display: flex;
+   justify-content: center;
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+#button{
+    background-color:darkcyan;
+    color: white;
+}
