@@ -1,20 +1,59 @@
 // let url = `https://www.anapioficeandfire.com/api/characters?page=${pageNum}&pageSize=50`;
 
-//Character class creation
+let popUp = document.querySelector('.popUp');
+let nameList = document.querySelector('.nameList');
 
-class Character {
-    constructor(name){
-        this.name = name;
-        this.houses = [];
-    }
-    addHouse(house){
-        this.houses.push(house);
-    }
+// function to get second API after event
+
+const getHouseInfo = (houseElement)=>{
+   
+        houseElement.addEventListener('click', (e) => {
+
+        //resetting popUp styling
+        popUp.innerHTML = "";
+        popUp.style.padding = "0px";
+        popUp.style.border = "none";
+
+        fetch(houseElement.id)
+        .then(results => results.json())
+        .then(data => {
+            let houseName = document.createElement('div');
+            houseName.setAttribute('class', 'houseName');
+            houseName.innerText += data.name;
+            popUp.append(houseName);
+            popUp.style.padding = "10px";
+            popUp.style.border = "solid black";
+
+            //creating element to contain specific house details
+            let details = document.createElement('div');
+            details.setAttribute('class', 'details');
+            popUp.append(details);
+
+            //creating and adding text to child elements of details
+            let region = document.createElement('div');
+            region.setAttribute('class', 'detailChild');
+            region.innerText ="Region: " + data.region;
+            details.append(region);
+
+            if(data.words !== ""){
+                let words = document.createElement('div');
+                words.setAttribute('class', 'detailChild');
+                words.innerText = "Words: " + '"' + data.words + '"';
+                details.append(words);
+            }
+
+            if(data.founded !== ""){
+                let founded = document.createElement('div');
+                founded.setAttribute('class', 'detailChild');
+                founded.innerText = "Founded: " + data.founded;
+                details.append(founded);
+            }
+
+        })
+
+    })
 }
-let characters = [];
-
-let coverPage = document.querySelector('.coverPage');
-let nameList = document.querySelector('.nameList')
+    
 
 // Code to get info from API
 
@@ -42,41 +81,40 @@ const getEntireUserList = async function(pageNo = 1) {
 
             //creating elements and adding names
 
-            let charBox = document.createElement('div');
-            let nameBox = document.createElement('div');
-            charBox.setAttribute('class', 'charBox');
-            nameBox.innerText = results[i].name;
-            nameList.append(charBox);
-            charBox.append(nameBox);
-            let allegiancesBox = document.createElement('div');
-            allegiancesBox.setAttribute('id', results[i].allegiances)
-            nameList.append(allegiancesBox);
+            if(results[i].name !== ""){
+                let charBox = document.createElement('div');
+                let nameBox = document.createElement('div');
+                nameBox.setAttribute('class', 'nameBox');
+                nameBox.innerText = results[i].name;
+                charBox.setAttribute('class', 'charBox');
+                
+                
+                
+                nameList.append(charBox);
+                charBox.append(nameBox);
+                let allegiancesBox = document.createElement('div');
+                allegiancesBox.setAttribute('id', results[i].allegiances);
+                allegiancesBox.setAttribute('class', 'allegiancesBox');
+                charBox.append(allegiancesBox);
 
-            let allegianceLength = results[i].allegiances.length;
-            console.log(allegianceLength);
+                let allegianceLength = results[i].allegiances.length;
+                console.log(allegianceLength);
 
-            if(allegianceLength > 0 && results[i].name !== ""){
-                for(let j= 0; j < results[i].allegiances.length; j++){
-                    fetch(results[i].allegiances[j])
-                    .then(houseResults => houseResults.json())
-                    .then(houseData => {
-                        let oneAllegiance = document.createElement('div');
-                        oneAllegiance.innerText += houseData.name;
-                        allegiancesBox.append(oneAllegiance);
-
-                        allegiancesBox.addEventListener('click', (e) =>{
-                            console.log("hello");
+                if(allegianceLength > 0 && results[i].name !== ""){
+                    for(let j= 0; j < results[i].allegiances.length; j++){
+                        fetch(results[i].allegiances[j])
+                        .then(houseResults => houseResults.json())
+                        .then(houseData => {
+                            let oneAllegiance = document.createElement('div');
+                            oneAllegiance.setAttribute('class', "oneAllegiance")
+                            oneAllegiance.setAttribute('id',results[i].allegiances[j]);
+                            oneAllegiance.innerText += houseData.name;
+                            allegiancesBox.append(oneAllegiance);
+                            getHouseInfo(oneAllegiance);
                         })
-                    })
+                    }
                 }
             }
-
-            
-
-            // nameList.addEventListener('click', (e) => {
-
-            //     let house
-            // })
         }
     return results.concat(await getEntireUserList(pageNo+1));
   } else {
