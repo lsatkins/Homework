@@ -1,0 +1,52 @@
+.body{
+    width: 100vw;
+}
+.container-fluid{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+}
+.smallLinks{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: lightgoldenrodyellow;
+}
+.movieCon{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+}
+a{
+    text-align: center;
+}
+.title{
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+.bigPicture{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.titlePic{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    line-height: 500%;
+    margin-left: 50px;
+}

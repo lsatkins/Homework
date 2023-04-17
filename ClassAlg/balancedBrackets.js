@@ -27,4 +27,4 @@ let removeOrNot = (strAtIndex, array) => {
     : array.push(strAtIndex);
 }
 
-console.log(balancedOrNot("{[()}]"));
+console.log(balancedOrNot("{[()]}"));

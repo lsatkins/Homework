@@ -8,8 +8,8 @@ let reverse = (string) => {
         return revStr + reverse(string);
     }
 }
-// let result = reverse("Hello World");
-// console.log(result);
+let result = reverse("Hello World");
+console.log(result);
 
 // let isPalindrome = (string) => {
 //     if (string === reverse(string)){
@@ -20,18 +20,18 @@ let reverse = (string) => {
 // }
 
 
-let isPalindrome = (string) => {
-    let start = string[0];
-    let end = string[string.length-1];
-    if(start === end && string.length > 1){
-        string = string.slice(1, -1);
-        return isPalindrome(string);
-    } else if (string.length <= 1){
-        return true;
-    } else {
-        return false
-    }
-}
+// let isPalindrome = (string) => {
+//     let start = string[0];
+//     let end = string[string.length-1];
+//     if(start === end && string.length > 1){
+//         string = string.slice(1, -1);
+//         return isPalindrome(string);
+//     } else if (string.length <= 1){
+//         return true;
+//     } else {
+//         return false
+//     }
+// }
 
-let result = isPalindrome("racecar");
-console.log(result);
+// let result = isPalindrome("racecar");
+// console.log(result);

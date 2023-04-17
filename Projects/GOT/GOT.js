@@ -2,6 +2,48 @@
 
 let popUp = document.querySelector('.popUp');
 let nameList = document.querySelector('.nameList');
+let searchBar = document.querySelector('.searchBar');
+let possibleNames = document.querySelector('.possibleNames');
+let textBox = document.querySelector('#textBox');
+
+// event listener for search bar
+
+    searchBar.addEventListener('keyup', (e)=>{
+
+        // getting list of nameBox elements
+
+        let names = document.getElementsByClassName('nameBox');
+        possibleNames.style.height = "100px";
+
+        for(let i = 0; i <= e.target.value.length -1; i++){
+            console.log(e.target.value.length);
+            possibleNames.innerText = "";
+
+            for(let j = 0; j < names.length; j++){
+                let currName = names[j].innerText;
+                
+                let part = currName.slice(0, i+1).toLowerCase()
+
+                if(part === e.target.value.toLowerCase()){
+                    
+                    let possName = document.createElement('div');
+                    possName.innerText = currName;
+                    possibleNames.append(possName);
+                    possName.addEventListener('click',(e)=>{
+
+                        let clickedName = document.getElementById(e.target.innerText);
+
+                        clickedName.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+                    })
+                }else{
+                    continue;
+                }
+            }
+        }
+
+
+       // if()
+    })
 
 // function to get second API after event
 
@@ -13,6 +55,11 @@ const getHouseInfo = (houseElement)=>{
         popUp.innerHTML = "";
         popUp.style.padding = "0px";
         popUp.style.border = "none";
+
+        //resetting searchBar after clicking a house
+        possibleNames.innerText = "";
+        possibleNames.style.height = "0px";
+        textBox.value = "";
 
         fetch(houseElement.id)
         .then(results => results.json())
@@ -87,6 +134,7 @@ const getEntireUserList = async function(pageNo = 1) {
                 nameBox.setAttribute('class', 'nameBox');
                 nameBox.innerText = results[i].name;
                 charBox.setAttribute('class', 'charBox');
+                charBox.setAttribute('id', results[i].name);
                 
                 
                 
@@ -127,3 +175,4 @@ let getList = async() =>{
     console.log(entireList);
 }
 getList();
+
