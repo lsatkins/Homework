@@ -1,0 +1,37 @@
+.result{
+    background-color: lightgray;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: white;
+    font-size: 40px;
+    border: solid white 5px;
+}
+.symbol{
+    background-color: orange;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight:bold;
+    border: solid white 5px;
+    color: rgb(93, 92, 92);
+    font-size: 40px;
+}
+.number{
+    background-color: lightgray;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid white 5px;
+    color: rgb(93, 92, 92);
+    font-size: 40px;
+}
+/* .row{
+    width: 450px;
+} */
+.wholeCalc{
+padding: 0px;
+}
