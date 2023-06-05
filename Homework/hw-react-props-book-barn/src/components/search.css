@@ -1,0 +1,11 @@
+.search{
+    background-color: lightgray;
+}
+.button{
+    margin-right: auto;
+    border: solid black 1px;
+    background-color: rgb(207, 196, 196);
+}
+div.row{
+    margin: 0;
+}

@@ -1,0 +1,22 @@
+.footer{
+    color: darkgreen;
+    justify-content:end;
+    font-size: 14px;
+}
+.topAdd{
+    height: 50px;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.rightAdd{
+    height: 40%;
+    background-color: red;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.marginTop{
+    margin-top: 48px;
+}
