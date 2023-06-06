@@ -1,0 +1,35 @@
+.movies{
+    justify-content: center;
+    background-image: url("https://c4.wallpaperflare.com/wallpaper/872/820/938/bats-landscape-silhouette-wallpaper-preview.jpg");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    height: 40%;
+}
+.col-2{
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+p{
+    text-align: center;
+    color: white;
+}
+img{
+    border: solid black 2px;
+    box-shadow: 2px 2px 2px rgb(35, 34, 34);
+}
+.details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.category{
+    margin-bottom: 10px;
+    padding-right: 10px;
+    font-weight:bold;
+}
+.plot{
+    width: 70%;
+}

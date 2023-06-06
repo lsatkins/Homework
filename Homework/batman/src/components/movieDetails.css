@@ -1,0 +1,24 @@
+.bottom{
+    background-color: black;
+    color: white;
+}
+.bigImage{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: solid black 5px;
+    box-shadow: 5px 5px 15px rgb(233, 209, 209);
+}
+.bigPic{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h2{
+    margin-bottom: 10px;
+}
+.wholeBottom{
+    height: 60%;
+}
+html{
+    background-color: black;
+}
