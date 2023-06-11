@@ -164,9 +164,11 @@ const ContactManagement = () => {
   
     useEffect(() => {
         let filteredContacts = contacts.filter(contact=>{
-            return contact.name.includes(searchQuery)
+            let nameVar = contact.name;
+            nameVar = String(nameVar.toLowerCase())
+            let query = String(searchQuery.toLowerCase())
+            return nameVar.includes(query)
         })
-        console.log(filteredContacts)
 
         setSearchedContacts(filteredContacts);
         
