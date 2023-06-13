@@ -24,11 +24,27 @@ export const deleteStudentByName = (fName) => {
         }
     }
 }
-export const sortStudents = (students) => {
+export const sortByName = (students) => {
     return {
-        type: "DELETE_STUDENT_BY_NAME",
+        type: "SORT_STUDENT_BY_NAME",
         data: {
             students
+        }
+    }
+}
+export const sortByCity = (students) => {
+    return {
+        type: "SORT_STUDENT_BY_CITY",
+        data: {
+            students
+        }
+    }
+}
+export const searchStudent = (input) => {
+    return {
+        type: "SEARCH_STUDENT",
+        data: {
+            input
         }
     }
 }

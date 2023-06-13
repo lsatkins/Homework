@@ -55,7 +55,12 @@ let students = [
         id: uuidv4(),
         fName: "Victoria", 
         city: "Atlanta"
-}
+    },
+    { 
+        id: uuidv4(),
+        fName: "Hunter",
+        city: "Tuscaloosa"
+    }
 ]
 
 export default students;

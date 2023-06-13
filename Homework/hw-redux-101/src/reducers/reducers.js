@@ -1,14 +1,12 @@
 import studentsArr from '../data/students'
 
-const reducer = (state, action) => {
+const initialState = {
+    count: studentsArr.length,
+    students: studentsArr,
+    searchHistory: []
+};
 
-    if(state === undefined){
-
-        state = {
-            count: studentsArr.length,
-            students: studentsArr
-        }
-    }
+const reducer = (state = initialState, action) => {
 
     switch(action.type){
 
@@ -51,15 +49,76 @@ const reducer = (state, action) => {
             }
             break;
 
-        case "SORT_STUDENTS":
+        case "SORT_STUDENT_BY_NAME":
 
-            console.log(state.students)
+            let sortedByName = [...state.students].sort((a, b)=>{
+                if(a.fName < b.fName){
+                    return -1
+                }
+                if(a.fName > b.fName){
+                    return 1;
+                }
+                return 0;
+            })
 
             return {
                 ...state,
-                students: state.students.sort()
+                sortedByName
                 
+            };
+        case "SORT_STUDENT_BY_CITY":
+
+            let sortedByCity = [...state.students].sort((a, b)=>{
+                if(a.city < b.city){
+                    return -1
+                }
+                if(a.city > b.city){
+                    return 1;
+                }
+                return 0;
+            })
+
+            return {
+                ...state,
+                sortedByCity
+                
+            };
+        case "SEARCH_STUDENT":
+
+            let findStudent = [...state.students].some(student => student.fName === action.data.input)
+            let foundStudent = {}
+            if(findStudent){
+                [...state.students].forEach(student => {
+                    if (student.fName === action.data.input){
+                        foundStudent = student
+                    }
+                })
             }
+            if(findStudent && state.searchHistory.length < 3){
+                return{
+                    ...state,
+                    searchHistory: state.searchHistory.concat(foundStudent)
+                }
+            } else if (findStudent && state.searchHistory.length >= 3){ 
+
+                let newHistory = [...state.searchHistory].splice(1,2).concat(foundStudent)
+                return{
+                    ...state,
+                    searchHistory: newHistory
+
+                }
+            } else{
+                alert("No user by that name exists.")
+                return{
+                    ...state
+                }
+            }
+
+            return {
+                ...state,
+                searchHistory: state.searchHistory.concat(action.data.input)
+                
+            };
           
 
         default:
