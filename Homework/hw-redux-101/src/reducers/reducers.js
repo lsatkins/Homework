@@ -3,7 +3,10 @@ import studentsArr from '../data/students'
 const initialState = {
     count: studentsArr.length,
     students: studentsArr,
-    searchHistory: []
+    searchHistory: [],
+    searchResult: {},
+    sortedByCity: [],
+    sortedByName: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -51,7 +54,7 @@ const reducer = (state = initialState, action) => {
 
         case "SORT_STUDENT_BY_NAME":
 
-            let sortedByName = [...state.students].sort((a, b)=>{
+            let sortedName = [...state.students].sort((a, b)=>{
                 if(a.fName < b.fName){
                     return -1
                 }
@@ -63,12 +66,12 @@ const reducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                sortedByName
+                sortedByName: sortedName
                 
             };
         case "SORT_STUDENT_BY_CITY":
 
-            let sortedByCity = [...state.students].sort((a, b)=>{
+            let sortedCity = [...state.students].sort((a, b)=>{
                 if(a.city < b.city){
                     return -1
                 }
@@ -80,31 +83,59 @@ const reducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                sortedByCity
+                sortedByCity: sortedCity
                 
             };
         case "SEARCH_STUDENT":
 
-            let findStudent = [...state.students].some(student => student.fName === action.data.input)
+            let foundInHistory = [...state.searchHistory].some(student=> student.fName === action.data.input)
+
+            let findStudent;
+
+            if(!foundInHistory){ // only search through all students if student is not found in history
+
+                findStudent = [...state.students].some(student => student.fName === action.data.input)
+
+            }
+            
+            
             let foundStudent = {}
+            if(foundInHistory){ // keeping other code from executing if input is found in history
+                console.log('found in history')
+                findStudent = false;
+                
+                [...state.searchHistory].forEach(student => {
+                    if(student.fName === action.data.input){
+                        foundStudent = student;
+                    }
+                })
+                return{
+                    ...state,
+                    searchResult: foundStudent
+
+                }
+            }
             if(findStudent){
                 [...state.students].forEach(student => {
                     if (student.fName === action.data.input){
                         foundStudent = student
+                        console.log('found in studentList')
                     }
                 })
             }
             if(findStudent && state.searchHistory.length < 3){
                 return{
                     ...state,
-                    searchHistory: state.searchHistory.concat(foundStudent)
+                    searchHistory: state.searchHistory.concat(foundStudent),
+                    searchResult: foundStudent
                 }
             } else if (findStudent && state.searchHistory.length >= 3){ 
 
                 let newHistory = [...state.searchHistory].splice(1,2).concat(foundStudent)
                 return{
                     ...state,
-                    searchHistory: newHistory
+                    searchHistory: newHistory,
+                    searchResult: foundStudent
 
                 }
             } else{
@@ -113,12 +144,6 @@ const reducer = (state = initialState, action) => {
                     ...state
                 }
             }
-
-            return {
-                ...state,
-                searchHistory: state.searchHistory.concat(action.data.input)
-                
-            };
           
 
         default:

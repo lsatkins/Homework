@@ -10,7 +10,7 @@ const SortStudentList = () => {
   const studentList = useSelector(state => state.students);
   const nameList = useSelector(state => state.sortedByName);
   const cityList = useSelector(state => state.sortedByCity);
-  const [isDisplayed, setIsDisplayed] = useState(nameList);
+  const [isDisplayed, setIsDisplayed] = useState('name');
 
   useEffect(() => {
     dispatch(sortByName());
@@ -18,11 +18,11 @@ const SortStudentList = () => {
   }, [studentList, dispatch]); // Include studentList and dispatch in the dependency array
 
   const displayName = () => {
-    setIsDisplayed(nameList);
+    setIsDisplayed('name');
   };
 
   const displayCity = () => {
-    setIsDisplayed(cityList);
+    setIsDisplayed('city');
   };
 
   // Form section
@@ -33,6 +33,9 @@ const SortStudentList = () => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(addStudent(uuidv4(), fName, city));
+    console.log('nameList', nameList)
+    console.log('displayed', isDisplayed)
+    console.log(studentList)
     setFName('');
     setCity('');
     navigate('/sort_student_list');
@@ -46,9 +49,11 @@ const SortStudentList = () => {
       <button onClick={()=>displayCity()}>Sorted By City</button>
       {isDisplayed && (
         <ul>
-          {isDisplayed.map(student => (
+          {((isDisplayed === 'name') ? nameList : cityList).map(student => (
             <li key={student.id}>
               {student.fName} {student.city}
+              &nbsp; &nbsp;
+          <button onClick={() => dispatch(removeStudent(student.id))}>X</button>
             </li>
           ))}
         </ul>

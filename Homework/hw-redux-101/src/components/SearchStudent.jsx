@@ -12,6 +12,7 @@ const SearchStudent = () => {
 
     const [input, setInput] = useState("")
     const searchHistory = useSelector(state=>state.searchHistory)
+    const searchResult = useSelector(state=>state.searchResult)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -21,16 +22,20 @@ const SearchStudent = () => {
       setInput('');
       navigate('/search_student');
     };
-    console.log(searchHistory)
+    console.log('history',searchHistory)
+    console.log('result', searchResult)
 
   return (
     <>
+    <div>
       <form onSubmit={handleSubmit}>
 
         <input type="text" value={input} onChange={e=>setInput(e.target.value)} placeholder="Search Student"></input>
         <button type="submit">Submit</button>
 
       </form>
+      <div>{searchResult.fName} &nbsp; {searchResult.city}</div>
+    </div>
     </>
   )
 }
