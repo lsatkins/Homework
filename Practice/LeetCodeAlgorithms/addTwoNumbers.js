@@ -13,6 +13,10 @@
 
 let l1 = [2,4,3];
 let l2 = [5,6,4];
+let arr1 = [0]
+let arr2 = [0]
+let l3 = [9,9,9,9,9,9,9]
+let l4 = [9,9,9,9]
 
 let getNum = (arr) =>{
 
@@ -30,7 +34,7 @@ let addNums = (num1, num2)=>{
     let result = Number(num1) + Number(num2);
     return result;
 }
-console.log(getNum(l1));
+// console.log(getNum(l1));
 var addTwoNumbers = function(l1, l2) {
 
     let num1 = getNum(l1);
@@ -51,8 +55,9 @@ var addTwoNumbers = function(l1, l2) {
     
 };
 
-console.log(addNums("1","2"));
+// console.log(addNums("1","2"));
 
-console.log(addTwoNumbers(l1, l2));
+// console.log(addTwoNumbers(l1, l2));
+console.log(addTwoNumbers(l3, l4));
 
 
